@@ -1,7 +1,10 @@
 import {useEffect} from 'react';
-import {Alert, Button, View} from 'react-native';
+import {Alert, Button, FlatList, Image, View, Dimensions} from 'react-native';
 import Analytics from 'appcenter-analytics';
 import Crashes from 'appcenter-crashes';
+import imgs from './imgs';
+
+const {width, height} = Dimensions.get('screen');
 
 export default function App() {
   useEffect(() => {
@@ -17,8 +20,8 @@ export default function App() {
   }
 
   return (
-    <View style={{marginTop: 40}}>
-      <Button title="Crash" onPress={() => Crashes.generateTestCrash()} />
+    <View>
+      {/* <Button title="Crash" onPress={() => Crashes.generateTestCrash()} />
       <Button
         title="Calculate Inflation"
         onPress={() => {
@@ -26,6 +29,22 @@ export default function App() {
             Internet: 'WiFi',
             GPS: 'On',
           });
+        }}
+      /> */}
+      <FlatList
+        data={imgs}
+        keyExtractor={(_, index) => index}
+        horizontal={true}
+        renderItem={({item, index}) => {
+          return (
+            <View>
+              <Image
+                source={{uri: item}}
+                style={{width: width, height: height}}
+                resizeMode="cover"
+              />
+            </View>
+          );
         }}
       />
     </View>
